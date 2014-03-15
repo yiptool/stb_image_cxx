@@ -1,0 +1,12 @@
+
+import stb_image
+
+public_headers
+{
+	stb_image.hpp
+}
+
+sources
+{
+	stb_image.cpp
+}
