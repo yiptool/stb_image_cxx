@@ -24,6 +24,7 @@
 #define __616e90bab7e8b0734da4c1300d61e425__
 
 #include <yip-imports/stb_image.h>
+#include <memory>
 #include <iostream>
 
 namespace Stb
