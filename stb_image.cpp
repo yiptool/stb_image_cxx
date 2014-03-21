@@ -21,6 +21,7 @@
 // THE SOFTWARE.
 //
 #include "stb_image.hpp"
+#include <stdexcept>
 
 static char g_DummyData;
 
