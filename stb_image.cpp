@@ -52,10 +52,20 @@ static int stb_read(void * user, char * data, int size)
 	try
 	{
 		std::istream * stream = reinterpret_cast<std::istream *>(user);
-		if (stream->eof() || stream->bad() || stream->fail())
-			return 0;
-		stream->read(data, static_cast<std::streamsize>(size));
-		return static_cast<int>(stream->gcount());
+		char * p = data;
+		int totalBytesRead = 0;
+		do
+		{
+			if (stream->eof() || stream->bad() || stream->fail())
+				break;
+			stream->read(p, static_cast<std::streamsize>(size));
+			int bytesRead = static_cast<int>(stream->gcount());
+			totalBytesRead += bytesRead;
+			p += bytesRead;
+			size -= bytesRead;
+		}
+		while (size > 0);
+		return totalBytesRead;
 	}
 	catch (const std::exception & e)
 	{
@@ -101,7 +111,7 @@ Stb::ImagePtr Stb::Image::loadFromStream(std::istream & s, Format fmt)
 		if (!image->m_Data)
 			throw std::runtime_error(stbi_failure_reason());
 
-		image->m_Format = static_cast<Format>(imageFmt);
+		image->m_Format = static_cast<Format>(fmt);
 		if (image->m_Format == UNKNOWN)
 			throw std::runtime_error("unable to determine pixel format for the image.");
 	}
