@@ -111,7 +111,7 @@ Stb::ImagePtr Stb::Image::loadFromStream(std::istream & s, Format fmt)
 		if (!image->m_Data)
 			throw std::runtime_error(stbi_failure_reason());
 
-		image->m_Format = static_cast<Format>(fmt);
+		image->m_Format = static_cast<Format>(fmt == UNKNOWN ? imageFmt : fmt);
 		if (image->m_Format == UNKNOWN)
 			throw std::runtime_error("unable to determine pixel format for the image.");
 	}
