@@ -101,7 +101,7 @@ Stb::Image::~Image()
 
 Stb::ImagePtr Stb::Image::loadFromStream(std::istream & s, Format fmt)
 {
-	ImagePtr image = std::static_pointer_cast<Image>(std::make_shared<Image::Wrapper>());
+	ImagePtr image = make_ptr<Image::Wrapper>();
 
 	try
 	{

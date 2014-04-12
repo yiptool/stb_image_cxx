@@ -24,6 +24,7 @@
 #define __616e90bab7e8b0734da4c1300d61e425__
 
 #include <yip-imports/stb_image.h>
+#include <yip-imports/cxx-util/make_ptr.h>
 #include <memory>
 #include <iostream>
 
@@ -103,6 +104,7 @@ namespace Stb
 		Image & operator=(const Image &) = delete;
 
 		friend struct Wrapper;
+		FRIEND_MAKE_PTR();
 	};
 }
 
