@@ -21,6 +21,8 @@
 // THE SOFTWARE.
 //
 #include "stb_image.hpp"
+#include <yip-imports/cxx-util/istream_util.h>
+#include <yip-imports/cxx-util/macros.h>
 #include <stdexcept>
 
 static char g_DummyData;
@@ -52,20 +54,7 @@ static int stb_read(void * user, char * data, int size)
 	try
 	{
 		std::istream * stream = reinterpret_cast<std::istream *>(user);
-		char * p = data;
-		int totalBytesRead = 0;
-		do
-		{
-			if (stream->eof() || stream->bad() || stream->fail())
-				break;
-			stream->read(p, static_cast<std::streamsize>(size));
-			int bytesRead = static_cast<int>(stream->gcount());
-			totalBytesRead += bytesRead;
-			p += bytesRead;
-			size -= bytesRead;
-		}
-		while (size > 0);
-		return totalBytesRead;
+		return static_cast<int>(istream_read(*stream, data, static_cast<size_t>(size)));
 	}
 	catch (const std::exception & e)
 	{
